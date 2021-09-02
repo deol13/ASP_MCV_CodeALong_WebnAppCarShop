@@ -1,0 +1,43 @@
+﻿@model CarIndexViewModel
+@{
+    //Vägen till modelen behövs. I detta fallet: ASP_MCV_CodeALong_WebnAppCarShop.Models.ViewModel
+    //Man kan lägga till den i _ViewImports
+    ViewData["Title"] = "Index";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<a asp-action="Create">Create</a>
+
+@*Eftersom allt ligger i rätt struktur så behöver vi inte nämna controllen*@
+@*Med asp-for så vet den Utifrån Filtertext vilken typ av värde den ska ta in, så vi slipper type="text"*@
+@*asp-for gör även att programmet formaterar inputen till en CarIndexViewModel så vi kan ha CarIndexViewModel som parameter i Index action. *@
+@*Annars med <input type="text" id="test" name="test" /> så hade parametern på Index tvungen att vara en string*@
+
+<form asp-action="Index" method="post">
+    <label asp-for="FilterText"></label>
+    <input asp-for="FilterText" />
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Brand</th>
+            <th>Model</th>
+            <th>Price</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.CarList)
+	    {
+	    	<tr>
+                <td>@item.Brand</td>
+                <td>@item.ModelName</td>
+                <td>@item.Price</td>
+                <td>@*<a asp-action="Details"></a>*@</td>
+            </tr> 
+	    }
+    </tbody>
+
+</table>
